@@ -140,11 +140,15 @@ export class MemStorage implements IStorage {
 
   async createEvent(insertEvent: InsertEvent): Promise<Event> {
     const id = this.currentId++;
-    const event: Event = { 
-      ...insertEvent, 
-      id, 
+    const event: Event = {
+      id,
+      title: insertEvent.title,
+      date: new Date(insertEvent.date),
+      type: insertEvent.type,
+      time: insertEvent.time ?? null,
+      description: insertEvent.description ?? null,
+      registrationUrl: insertEvent.registrationUrl ?? null,
       createdAt: new Date(),
-      date: new Date(insertEvent.date)
     };
     this.events.set(id, event);
     return event;
@@ -180,7 +184,14 @@ export class MemStorage implements IStorage {
 
   async createMilestone(insertMilestone: InsertMilestone): Promise<Milestone> {
     const id = this.currentId++;
-    const milestone: Milestone = { ...insertMilestone, id };
+    const milestone: Milestone = {
+      id,
+      title: insertMilestone.title,
+      value: insertMilestone.value,
+      description: insertMilestone.description ?? null,
+      order: insertMilestone.order,
+      isActive: insertMilestone.isActive ?? true,
+    };
     this.milestones.set(id, milestone);
     return milestone;
   }
@@ -205,7 +216,14 @@ export class MemStorage implements IStorage {
 
   async createPartner(insertPartner: InsertPartner): Promise<Partner> {
     const id = this.currentId++;
-    const partner: Partner = { ...insertPartner, id };
+    const partner: Partner = {
+      id,
+      name: insertPartner.name,
+      type: insertPartner.type,
+      description: insertPartner.description ?? null,
+      logoUrl: insertPartner.logoUrl ?? null,
+      isActive: insertPartner.isActive ?? true,
+    };
     this.partners.set(id, partner);
     return partner;
   }
@@ -227,11 +245,17 @@ export class MemStorage implements IStorage {
 
   async createCollaborationRequest(insertRequest: InsertCollaborationRequest): Promise<CollaborationRequest> {
     const id = this.currentId++;
-    const request: CollaborationRequest = { 
-      ...insertRequest, 
-      id, 
+    const request: CollaborationRequest = {
+      id,
+      name: insertRequest.name,
+      email: insertRequest.email,
+      phone: insertRequest.phone ?? null,
+      country: insertRequest.country ?? null,
+      organization: insertRequest.organization ?? null,
+      position: insertRequest.position ?? null,
+      message: insertRequest.message,
       status: "pending",
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     this.collaborationRequests.set(id, request);
     return request;

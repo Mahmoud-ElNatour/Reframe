@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useAuth } from "@/lib/auth";
+import { useLang } from "@/lib/lang";
 
 export default function Navigation() {
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isAdmin } = useAuth();
+  const { toggle } = useLang();
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
@@ -28,16 +32,18 @@ export default function Navigation() {
               </Link>
               
               {/* Services Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsServiceDropdownOpen(true)}
-                onMouseLeave={() => setIsServiceDropdownOpen(false)}
-              >
-                <button className="text-neutral hover:text-primary px-3 py-2 text-sm font-medium transition-colors flex items-center">
+              <div className="relative">
+                <button
+                  onClick={() => setIsServiceDropdownOpen(!isServiceDropdownOpen)}
+                  className="text-neutral hover:text-primary px-3 py-2 text-sm font-medium transition-colors flex items-center"
+                >
                   Services <i className="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
                 {isServiceDropdownOpen && (
-                  <div className="absolute left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
+                  <div
+                    className="absolute left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-20"
+                    onMouseLeave={() => setIsServiceDropdownOpen(false)}
+                  >
                     <div className="py-2">
                       <Link href="/services/technical-consultation" className="block px-4 py-3 text-sm text-neutral hover:bg-gray-50 hover:text-primary border-b border-gray-100">
                         <div className="font-medium">Technical Consultation & Support</div>
@@ -66,7 +72,12 @@ export default function Navigation() {
               <Link href="/login" className="text-neutral hover:text-primary px-3 py-2 text-sm font-medium transition-colors">
                 Login
               </Link>
-              <button className="bg-secondary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-accent transition-colors">
+              {isAdmin && (
+                <Link href="/admin" className="text-neutral hover:text-primary px-3 py-2 text-sm font-medium transition-colors">
+                  Add Employee
+                </Link>
+              )}
+              <button className="bg-secondary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-accent transition-colors" onClick={toggle}>
                 AR-Eng
               </button>
             </div>
@@ -113,6 +124,11 @@ export default function Navigation() {
               <Link href="/login" className="block px-3 py-2 text-base font-medium text-neutral hover:text-primary">
                 Login
               </Link>
+              {isAdmin && (
+                <Link href="/admin" className="block px-3 py-2 text-base font-medium text-neutral hover:text-primary">
+                  Add Employee
+                </Link>
+              )}
             </div>
           </div>
         )}
