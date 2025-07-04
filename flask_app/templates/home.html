@@ -2,16 +2,28 @@
 {% block title %}Home - Reframe{% endblock %}
 {% block content %}
 <section class="hero">
-    {% for img in ['1000373231.jpg','1000373664.jpg','1000717336.jpg'] %}
+    {% for img in ['1000373231.jpg','1000373664.jpg','1000719517.jpg','1000719568.jpg'] %}
     <img src="{{ url_for('static', filename='images/' + img) }}" class="hero-img" alt="hero">
     {% endfor %}
 </section>
 <section class="calendar">
-    <div id="calendar-half">Calendar here</div>
+    <div id="calendar-half">
+        <h2>Calendar</h2>
+        <p>Calendar here</p>
+    </div>
     <div id="lab-announcement">
         <h2>Mental Health Lab</h2>
         <p>Would you like to collaborate with us?</p>
-        <a href="{{ url_for('contact') }}">Yes</a>
+        <button id="collab-btn" type="button">Yes</button>
     </div>
+</section>
+<section class="timeline">
+    <h2>Our Story</h2>
+    <ul>
+        <li>2022 - Launch of Reframe</li>
+        <li>2023 - Regional partnerships</li>
+        <li>2024 - Expansion of services</li>
+        <li>2025 - Upcoming initiatives</li>
+    </ul>
 </section>
 {% endblock %}

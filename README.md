@@ -1,6 +1,6 @@
 # Reframe Flask App
 
-This is a simple Flask conversion of the original project.
+This project provides a minimal Flask implementation of the Reframe website. The original TypeScript/React code was replaced with Python templates and static files.
 
 ## Setup
 ```bash
@@ -11,3 +11,5 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
+
+The app will be available at `http://localhost:5000`.

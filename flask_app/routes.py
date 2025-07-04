@@ -1,5 +1,15 @@
 from flask import render_template, redirect, url_for, request, session
+from dataclasses import dataclass
+from typing import List
+
 from . import app
+
+@dataclass
+class Employee:
+    name: str
+    role: str
+
+employees: List[Employee] = []
 
 # simple in-memory user
 ADMIN_EMAIL = 'admin@example.com'
@@ -37,11 +47,16 @@ def login():
             error = 'Invalid credentials'
     return render_template('login.html', error=error)
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if session.get('user') != ADMIN_EMAIL:
         return redirect(url_for('login'))
-    return render_template('admin.html')
+    if request.method == 'POST':
+        name = request.form.get('emp_name')
+        role = request.form.get('emp_role')
+        if name and role:
+            employees.append(Employee(name, role))
+    return render_template('admin.html', employees=employees)
 
 @app.route('/logout')
 def logout():

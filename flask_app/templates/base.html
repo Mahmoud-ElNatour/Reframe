@@ -8,15 +8,19 @@
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('services') }}">Services</a></li>
-            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            <li><button id="lang-toggle">AR-Eng</button></li>
-        </ul>
-    </nav>
-    {% block content %}{% endblock %}
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><button id="lang-toggle" type="button">AR-Eng</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>
