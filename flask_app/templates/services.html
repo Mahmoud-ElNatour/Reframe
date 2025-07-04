@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Services - Reframe{% endblock %}
+{% block content %}
+<h1>Our Services</h1>
+<ul>
+    <li><a href="{{ url_for('service_detail', service='technical-consultation') }}">Technical Consultation and Support</a></li>
+    <li><a href="{{ url_for('service_detail', service='empowerment-hub') }}">Empowerment Hub and Training</a></li>
+    <li><a href="{{ url_for('service_detail', service='mental-health-lab') }}">Mental Health Lab</a></li>
+    <li><a href="{{ url_for('service_detail', service='translation') }}">Professional Translation</a></li>
+</ul>
+{% endblock %}

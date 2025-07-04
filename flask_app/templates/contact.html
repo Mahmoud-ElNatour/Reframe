@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Contact - Reframe{% endblock %}
+{% block content %}
+<h1>Contact Us</h1>
+<form method="post" action="#">
+    <label>Name <input type="text" name="name"></label>
+    <label>Email <input type="email" name="email"></label>
+    <label>Message <textarea name="msg"></textarea></label>
+    <button type="submit">Send</button>
+</form>
+{% endblock %}
