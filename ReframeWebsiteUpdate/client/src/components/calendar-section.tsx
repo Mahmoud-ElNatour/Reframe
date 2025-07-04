@@ -5,8 +5,7 @@ import type { Event } from "@shared/schema";
 
 export default function CalendarSection() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [showCollaborationModal, setShowCollaborationModal] = useState(false);
-  
+
   const { data: events = [] } = useQuery<Event[]>({
     queryKey: ['/api/events/upcoming'],
   });
@@ -146,8 +145,8 @@ export default function CalendarSection() {
               <div className="text-center">
                 <p className="text-xl font-semibold mb-4">Would you like to collaborate with us?</p>
                 <div className="flex gap-4 justify-center">
-                  <button 
-                    onClick={() => setShowCollaborationModal(true)}
+                  <button
+                    onClick={() => window.dispatchEvent(new Event('showCollaborationModal'))}
                     className="bg-white text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                   >
                     Yes, Let's Collaborate
@@ -162,64 +161,7 @@ export default function CalendarSection() {
         </div>
       </div>
 
-      {/* Pass modal state to global context or handle it here */}
-      {showCollaborationModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-neutral">Mental Health Lab Collaboration</h2>
-                <button 
-                  onClick={() => setShowCollaborationModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <i className="fas fa-times text-xl"></i>
-                </button>
-              </div>
-              
-              <p className="text-gray-600 mb-8">
-                We're excited about the possibility of collaborating with you! Please fill out the form below and let us know how we can work together.
-              </p>
-              
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-neutral mb-2">Name *</label>
-                    <input type="text" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-neutral mb-2">Email *</label>
-                    <input type="email" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" />
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-neutral mb-2">How can we collaborate together? *</label>
-                  <textarea 
-                    required 
-                    rows={5} 
-                    placeholder="Please let us know how we can collaborate together..." 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent resize-none"
-                  ></textarea>
-                </div>
-                
-                <div className="flex gap-4">
-                  <button type="submit" className="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors flex-1">
-                    Submit Collaboration Request
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => setShowCollaborationModal(false)}
-                    className="border border-gray-300 text-neutral px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* The collaboration modal is handled globally */}
     </section>
   );
 }
